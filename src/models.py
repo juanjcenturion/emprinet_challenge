@@ -27,18 +27,17 @@ class Appointment(db.Model):
 
     # Table fields
     id = db.Column(db.Integer, primary_key=True)
-    patient_id = db.Column(db.Integer, db.ForeignKey('patient.id'), nullable=False)
+    patient_id = db.Column(db.Integer, db.ForeignKey('patient.id'), nullable=False)  # Cambiado a patient_id
     doctor = db.Column(db.String(100), nullable=False)
     specialty = db.Column(db.String(100), nullable=False)
     appointment_date = db.Column(db.DateTime, nullable=False)
-    notes = db.Column(db.Text, nullable=True)
+    description = db.Column(db.Text, nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.now)
     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
     active = db.Column(db.Boolean, default=True, nullable=False)
 
     # Relationship
-    patient = db.relationship('Patient', backref='appointment')
+    patient = db.relationship('Patient', backref='appointments')  # Cambiado el backref a 'appointments'
 
     def __str__(self):
-        return f"{self.patient_id},  {self.appointment_date}>"
-    
+        return f"{self.patient},  {self.appointment_date}>"
