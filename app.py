@@ -19,7 +19,7 @@ from src.routes import PatientsRoute
 
 # Add routes to app
 app.add_url_rule("/patients", view_func=PatientsRoute.as_view('patients'), methods=["GET", "POST"])
-app.add_url_rule("/patients/<int:id>", view_func=PatientsRoute.as_view('patient'), methods=["GET", "PUT"])
+app.add_url_rule("/patients/<int:id>", view_func=PatientsRoute.as_view('patient'), methods=["GET", "PUT", "DELETE"])
 
 # Ejecutar la aplicación
 if __name__ == '__main__':

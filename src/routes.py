@@ -10,7 +10,8 @@ class PatientsRoute(MethodView):
     def get(self, id=None):
         if id:
             # search patient for id
-            patient = Patient.query.get(id)
+            patient = Patient.query.filter_by(id=id, active=True).first()
+
             if not patient:
                 return jsonify({"error": "Paciente no encontrado"}), 404
             
@@ -18,7 +19,7 @@ class PatientsRoute(MethodView):
             return patient_schema.jsonify(patient)
 
         # Get all patients
-        patients = Patient.query.all()
+        patients = Patient.query.filter_by(active=True).all()
         patients_schema = PatientSchema(many=True)
         return patients_schema.jsonify(patients)
 
@@ -40,7 +41,7 @@ class PatientsRoute(MethodView):
     
     def put(self, id):
         # Search patient for id
-        patient = Patient.query.get(id)
+        patient = Patient.query.filter_by(id=id, active=True).first()
 
         # Verificar si el paciente existe
         if not patient:
@@ -68,7 +69,8 @@ class PatientsRoute(MethodView):
 
     def delete(self, id):
         # Search patient for id
-        patient = Patient.query.get(id)
+        patient = Patient.query.filter_by(id=id, active=True).first()
+
 
         # Validate if exists
         if not patient:
@@ -79,3 +81,8 @@ class PatientsRoute(MethodView):
 
         if assigned_appointments:
             return jsonify({"error": "El paciente tiene turnos asignados, no se puede eliminar"})
+        
+        patient.active = False
+        db.session.commit()
+
+        return jsonify({"message": "Paciente eliminado exitosamente."}), 200

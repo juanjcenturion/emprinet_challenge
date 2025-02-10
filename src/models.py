@@ -15,6 +15,7 @@ class Patient(db.Model):
     address = db.Column(db.String(255), nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.now)
     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
+    active = db.Column(db.Boolean, default=True, nullable=False)
 
     def __str__(self):
         return f"{self.last_name}, {self.first_name}"
@@ -33,6 +34,7 @@ class Appointment(db.Model):
     notes = db.Column(db.Text, nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.now)
     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
+    active = db.Column(db.Boolean, default=True, nullable=False)
 
     # Relationship
     patient = db.relationship('Patient', backref='appointment')
