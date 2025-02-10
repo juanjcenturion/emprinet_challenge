@@ -17,7 +17,7 @@ class PatientsRoute(MethodView):
             
             patient_schema = PatientSchema()
             return patient_schema.jsonify(patient)
-
+        
         # Get all patients
         patients = Patient.query.filter_by(active=True).all()
         patients_schema = PatientSchema(many=True)
