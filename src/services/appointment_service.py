@@ -8,7 +8,7 @@ def get_appointment_by_id(id):
 
 def get_all_appointments():
     # Method list appointments
-    return Appointment.query.filter_by(active=True).all()
+    return Appointment.query.filter_by(active=True).order_by(Appointment.appointment_date)
 
 # create new appointment service
 def create_appointment(data):

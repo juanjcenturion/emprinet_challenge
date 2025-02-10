@@ -1,15 +1,17 @@
-from src.models import Patient, Appointment, db
 from marshmallow import ValidationError
+
+from src.models import Patient, Appointment, db
 from src.schemas import PatientSchema
 
 
+# Service search by id 
 def get_patient_by_id(id):
-    # Method search by id 
     return Patient.query.filter_by(id=id, active=True).first()
 
+# service query patients
 def get_all_patients():
-    # Method list patients
-    return Patient.query.filter_by(active=True).all()
+    return Patient.query.filter_by(active=True).order_by(Patient.last_name)
+
 
 # create new patient service
 def create_patient(data):

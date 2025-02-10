@@ -15,7 +15,8 @@ db.init_app(app)
 migrate.init_app(app, db)
 
 # Api route imports before init db and migrate to avoid generating circular import
-from src.views.views import PatientsAPIView, AppointmentsAPIView
+from src.views.patient_views import PatientsAPIView
+from src.views.appointement_views import AppointmentsAPIView
 
 # Add routes to app
 app.add_url_rule("/patients", view_func=PatientsAPIView.as_view('patients'), methods=["GET", "POST"])
@@ -23,6 +24,3 @@ app.add_url_rule("/patients/<int:id>", view_func=PatientsAPIView.as_view('patien
 app.add_url_rule("/appointments", view_func=AppointmentsAPIView.as_view('appointments'), methods=["GET", "POST"])
 app.add_url_rule("/appointments/<int:id>", view_func=AppointmentsAPIView.as_view('appointment'), methods=["GET", "PUT", "DELETE"])
 
-# Ejecutar la aplicación
-if __name__ == '__main__':
-    app.run(debug=True)
