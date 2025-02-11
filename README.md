@@ -23,7 +23,39 @@ ____
 ____
 
 ## 📦 Instalación y Configuración
-add instalacion
+
+#### 1. Clonar el repositorio
+```
+git clone https://github.com/juanjcenturion/emprinet_challenge.git
+cd emprinet_challenge
+```
+#### 2. Crear y activar tu entorno virtual (opcional)
+```
+python -m venv venv
+source venv/bin/activate  # En Linux/macOS
+venv\Scripts\activate  # En Windows
+```
+#### 3. Instalar Dependecias
+```
+pip install -r requirements.txt
+```
+#### 4. Configurar variables de entorno
+```
+cp .env.example .env
+```
+edita el archivo .env correctamente con tus credenciales
+
+#### 5. Inicializar la base de datos
+```
+flask db init
+flask db migrate -m "Initial migration"
+flask db upgrade
+```
+#### 6. Ejecutar la aplicación
+```
+flask run --reload
+```
+El __--reload__ es opcional
 ____
 
 ## 📋 Endpoints Disponibles
