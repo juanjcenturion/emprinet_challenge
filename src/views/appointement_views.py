@@ -1,4 +1,4 @@
-from flask import request, jsonify
+from flask import Blueprint, jsonify, request
 from flask_jwt_extended import jwt_required
 from flask.views import MethodView
 
@@ -12,6 +12,8 @@ from src.services.appointment_service import (
     delete_appointment,
 )
 
+
+appointment_blueprint = Blueprint('appointment', __name__)
 
 class AppointmentsAPIView(MethodView):
     @jwt_required()
@@ -103,3 +105,7 @@ class AppointmentsAPIView(MethodView):
             return jsonify({"error": errors}), 400
 
         return jsonify({"message": "Turno eliminado exitosamente."}), 200
+
+
+appointment_blueprint.add_url_rule('/', view_func=AppointmentsAPIView.as_view('appointments'), methods=["GET", "POST"])
+appointment_blueprint.add_url_rule('/<int:id>', view_func=AppointmentsAPIView.as_view('appointment'), methods=["GET", "PUT", "DELETE"])

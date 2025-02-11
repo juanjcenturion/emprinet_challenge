@@ -1,4 +1,4 @@
-from flask import request, jsonify
+from flask import Blueprint, jsonify, request
 from flask.views import MethodView
 from marshmallow import ValidationError
 
@@ -6,6 +6,7 @@ from src.schemas import UserSchema
 from src.services.user_service import register_user, login_user
 from src.configs.log_config import logger
 
+user_blueprint = Blueprint('user', __name__)
 
 class RegisterAPIView(MethodView):
     def post(self):
@@ -70,3 +71,6 @@ class LoginAPIView(MethodView):
             return jsonify(response), 401
 
         return jsonify(response), 200
+
+user_blueprint.add_url_rule('/register', view_func=RegisterAPIView.as_view('register'), methods=["POST"])
+user_blueprint.add_url_rule('/login', view_func=LoginAPIView.as_view('login'), methods=["POST"])

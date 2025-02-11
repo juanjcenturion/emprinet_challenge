@@ -42,6 +42,10 @@ ____
 - `PUT /appointments/<id>` -> Actualizar/editar turno.
 - `DELETE /appointments/<id>` -> Eliminación logica de turno.
 
+#### Autenticación (`/auth`)
+- `POST /auth/register` -> Crear Usuario.
+- `POST /auth/Login` -> Iniciar sesión.
+
 ____
 ## 📂 Estructura del proyecto
 ```
@@ -63,6 +67,8 @@ ____
         |-- 📄 appointment_service.py
         |-- 📄 patient_service.py
         |-- 📄 user_service.py
+    |-- 📁 tests/
+        |-- 📄 auth_test.py
     |-- 📁 utils/
         |-- 📄 utils.py
     |-- 📁 views/
@@ -78,3 +84,4 @@ ____
 2. Paginación en listados.
 3. Logging con Python Logging
 4. Soporte para Docker.
+5. Sentry

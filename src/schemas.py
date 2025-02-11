@@ -46,11 +46,11 @@ class AppointmentSchema(ma.SQLAlchemyAutoSchema):
     patient_id = fields.Integer(required=True)
     doctor = fields.String(required=True)
     specialty = fields.String(required=True)
-    appointment_date = fields.DateTime(required=True, default=datetime.now)
+    appointment_date = fields.DateTime(required=True, dump_default=datetime.now)
     description = fields.String(required=False)
     created_at = fields.DateTime(dump_only=True)
     updated_at = fields.DateTime(dump_only=True)
-    active = fields.Boolean(default=True)
+    active = fields.Boolean(dump_default=True)
 
     patient = fields.Nested("PatientSchema", only=["id", "first_name", "last_name"])
 

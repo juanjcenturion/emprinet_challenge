@@ -1,55 +1,40 @@
+import sentry_sdk
+
 from flask import Flask
-from flask_jwt_extended import JWTManager
+from src.configs.config import Config
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from src.configs.config import Config
+from flask_jwt_extended import JWTManager
 
 db = SQLAlchemy()
 migrate = Migrate()
 jwt = JWTManager()
 
-# Instance the App
+# Sentry initialization
+sentry_sdk.init(
+    dsn="https://f72aae3ba40d6c34e435a9a4c61b7e24@o4507817865248768.ingest.us.sentry.io/4508800444203008",
+    send_default_pii=True,
+)
+
+# Initialize app
 app = Flask(__name__)
 app.config.from_object(Config)
 
-# init db and migrations
+# Initialize db, migrations, and JWT
 db.init_app(app)
 migrate.init_app(app, db)
 jwt.init_app(app)
 
-# Api route imports before init db and migrate to avoid generating circular import
-from src.views.patient_views import PatientsAPIView
-from src.views.appointement_views import AppointmentsAPIView
-from src.views.user_views import RegisterAPIView, LoginAPIView
+# Import views after app initialization to avoid circular imports
+from src.views.patient_views import patient_blueprint
+from src.views.appointement_views import appointment_blueprint
+from src.views.user_views import user_blueprint
 
-# Add routes to app
-app.add_url_rule(
-    "/register", 
-    view_func=RegisterAPIView.as_view("register"), 
-    methods=["POST"]
-)
-app.add_url_rule(
-    "/login",
-    view_func=LoginAPIView.as_view("login"), 
-    methods=["POST"]
-)
-app.add_url_rule(
-    "/patients", 
-    view_func=PatientsAPIView.as_view("patients"),
-    methods=["GET", "POST"]
-)
-app.add_url_rule(
-    "/patients/<int:id>",
-    view_func=PatientsAPIView.as_view("patient"),
-    methods=["GET", "PUT", "DELETE"],
-)
-app.add_url_rule(
-    "/appointments",
-    view_func=AppointmentsAPIView.as_view("appointments"),
-    methods=["GET", "POST"],
-)
-app.add_url_rule(
-    "/appointments/<int:id>",
-    view_func=AppointmentsAPIView.as_view("appointment"),
-    methods=["GET", "PUT", "DELETE"],
-)
+# Register blueprints
+app.register_blueprint(patient_blueprint, url_prefix='/patients')
+app.register_blueprint(appointment_blueprint, url_prefix='/appointments')
+app.register_blueprint(user_blueprint, url_prefix='/auth')
+
+# Main entry point for the app
+if __name__ == "__main__":
+    app.run(debug=True)

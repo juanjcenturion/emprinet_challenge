@@ -1,4 +1,4 @@
-from flask import request, jsonify
+from flask import Blueprint, jsonify, request
 from flask_jwt_extended import jwt_required
 from flask.views import MethodView
 
@@ -11,6 +11,7 @@ from src.services.patient_service import (
     delete_patient,
 )
 
+patient_blueprint = Blueprint('patient', __name__)
 
 class PatientsAPIView(MethodView):
     @jwt_required()
@@ -94,3 +95,7 @@ class PatientsAPIView(MethodView):
             return jsonify({"error": errors}), 400
 
         return jsonify({"message": "Paciente eliminado exitosamente."}), 200
+
+
+patient_blueprint.add_url_rule('/', view_func=PatientsAPIView.as_view('patients'), methods=["GET", "POST"])
+patient_blueprint.add_url_rule('/<int:id>', view_func=PatientsAPIView.as_view('patient'), methods=["GET", "PUT", "DELETE"])
