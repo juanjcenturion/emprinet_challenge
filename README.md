@@ -85,6 +85,9 @@ ____
 |-- 📄 app.py    
 |-- 📄 requirements.txt
 |-- 📄 .env.example
+|-- 📄 Dockerfile
+|-- 📄 docker-compose.yml
+|-- 📄 run.sh
 |-- 📁 migrations
 |-- 📁 src/
     |-- 📄 config.py
