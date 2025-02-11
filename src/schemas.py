@@ -16,7 +16,7 @@ class UserSchema(ma.SQLAlchemyAutoSchema):
 
 
 class PatientSchema(ma.SQLAlchemyAutoSchema):
-    #validate required fields
+    # validate required fields
     first_name = fields.String(required=True)
     last_name = fields.String(required=True)
     email = fields.Email()
@@ -25,23 +25,21 @@ class PatientSchema(ma.SQLAlchemyAutoSchema):
     def preprocess_data(self, data, **kwargs):
         data = capitalize_names(data)
         return data
-    
+
     phone = fields.String()
     address = fields.String()
     created_at = fields.DateTime(dump_only=True)
 
     class Meta:
-        model = Patient 
+        model = Patient
         load_instance = True
         # Exclude fields unnecesary
-        exclude = ("created_at", "updated_at", "active" )
+        exclude = ("created_at", "updated_at", "active")
 
     @post_dump
     def remove_null_fields(self, data, **kwargs):
         # delete field null or none in response JSON
         return {key: value for key, value in data.items() if value is not None}
-        
-
 
 
 class AppointmentSchema(ma.SQLAlchemyAutoSchema):
@@ -54,17 +52,16 @@ class AppointmentSchema(ma.SQLAlchemyAutoSchema):
     updated_at = fields.DateTime(dump_only=True)
     active = fields.Boolean(default=True)
 
-    patient = fields.Nested('PatientSchema', only=['id', 'first_name', 'last_name'])
+    patient = fields.Nested("PatientSchema", only=["id", "first_name", "last_name"])
 
     class Meta:
         model = Appointment
         include_relationships = True
         load_instance = True
         # Exclude fields unnecesary
-        exclude = ("created_at", "updated_at", "active" )
+        exclude = ("created_at", "updated_at", "active")
 
     @post_dump
     def remove_null_fields(self, data, **kwargs):
         # delete field null or none in response JSON
         return {key: value for key, value in data.items() if value is not None}
-

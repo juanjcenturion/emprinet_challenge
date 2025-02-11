@@ -4,7 +4,7 @@ from app import db
 
 
 class User(db.Model):
-    __tablename__ = 'user'
+    __tablename__ = "user"
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
@@ -12,8 +12,8 @@ class User(db.Model):
 
 
 class Patient(db.Model):
-    
-    __tablename__ = 'patient'
+
+    __tablename__ = "patient"
 
     # Table fields
     id = db.Column(db.Integer, primary_key=True)
@@ -32,11 +32,13 @@ class Patient(db.Model):
 
 class Appointment(db.Model):
 
-    __tablename__= 'appointment'
+    __tablename__ = "appointment"
 
     # Table fields
     id = db.Column(db.Integer, primary_key=True)
-    patient_id = db.Column(db.Integer, db.ForeignKey('patient.id'), nullable=False)  # Cambiado a patient_id
+    patient_id = db.Column(
+        db.Integer, db.ForeignKey("patient.id"), nullable=False
+    )  # Cambiado a patient_id
     doctor = db.Column(db.String(100), nullable=False)
     specialty = db.Column(db.String(100), nullable=False)
     appointment_date = db.Column(db.DateTime, nullable=False)
@@ -46,7 +48,9 @@ class Appointment(db.Model):
     active = db.Column(db.Boolean, default=True, nullable=False)
 
     # Relationship
-    patient = db.relationship('Patient', backref='appointments')  # Cambiado el backref a 'appointments'
+    patient = db.relationship(
+        "Patient", backref="appointments"
+    )  # Cambiado el backref a 'appointments'
 
     def __str__(self):
         return f"{self.patient},  {self.appointment_date}>"

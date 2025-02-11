@@ -6,10 +6,11 @@ from src.schemas import PatientSchema
 from src.configs.log_config import logger
 
 
-# Service search by id 
+# Service search by id
 def get_patient_by_id(id):
     logger.info(f"🔍 Buscando paciente con ID: {id} ")
     return Patient.query.filter_by(id=id, active=True).first()
+
 
 # service query patients
 def get_all_patients():
@@ -27,19 +28,22 @@ def create_patient(data):
         db.session.add(patient)
         db.session.commit()
 
-        logger.info(f"✅ Paciente creado correctamente: {patient.id} - {patient.last_name}, {patient.first_name}")
+        logger.info(
+            f"✅ Paciente creado correctamente: {patient.id} - {patient.last_name}, {patient.first_name}"
+        )
 
         return patient, None
-    
+
     # Validation Error
     except ValidationError as err:
         logger.error(f"❌ Error al validar paciente: {err.messages}")
         return None, err.messages
-    
+
     # Critical POST METHOD Error
     except Exception as e:
         logger.critical(f"🔥 Error crítico al crear paciente: {str(e)}")
         return None, {"error": "Error interno del servidor"}
+
 
 # Service update patient
 def update_patient(id, data):
@@ -59,13 +63,13 @@ def update_patient(id, data):
     except ValidationError as err:
         logger.error(f"❌ Error en validación de actualización: {err.messages}")
         return None, err.messages
-    
+
     # Critical PUT METHOD Error
     except Exception as e:
         logger.critical(f"🔥 Error crítico al editar el paciente: {str(e)}")
         return None, {"error": "Error interno del servidor"}
 
-    # update data 
+    # update data
     for key, value in data.items():
         if hasattr(patient, key) and value is not None:
             setattr(patient, key, value)
@@ -73,6 +77,7 @@ def update_patient(id, data):
     db.session.commit()
     logger.info(f"✅ Paciente con ID {id} actualizado correctamente.")
     return patient, None
+
 
 # delete logic patient
 def delete_patient(id):
@@ -86,7 +91,9 @@ def delete_patient(id):
     assigned_appointments = Appointment.query.filter_by(patient_id=id).all()
 
     if assigned_appointments:
-        logger.warning(f"⚠️ El paciente {id}, tiene turnos asignados, no se puede eliminar.")
+        logger.warning(
+            f"⚠️ El paciente {id}, tiene turnos asignados, no se puede eliminar."
+        )
         return None, "El paciente tiene turnos asignados, no se puede eliminar"
 
     patient.active = False
