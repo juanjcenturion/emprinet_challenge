@@ -1,4 +1,5 @@
 from flask import request, jsonify
+from flask_jwt_extended import jwt_required
 from flask.views import MethodView
 
 from src.schemas import AppointmentSchema
@@ -12,6 +13,7 @@ from src.services.appointment_service import (
 )
 
 class AppointmentsAPIView(MethodView):
+    @jwt_required()
     def get(self, id=None):
         if id:
             # Search Appointments for id with service
@@ -49,6 +51,7 @@ class AppointmentsAPIView(MethodView):
             "has_prev": appointments_paginated.has_prev
         })
     
+    @jwt_required()
     def post(self):
         data = request.get_json()
         
@@ -62,6 +65,7 @@ class AppointmentsAPIView(MethodView):
             "message": "Turno creado correctamente",
             "data": appointment_schema.dump(appointment) }),200
 
+    @jwt_required()
     def put(self, id):
         # Update appointment with service
         appointment_json = request.get_json()
@@ -77,6 +81,7 @@ class AppointmentsAPIView(MethodView):
             "data": appointment_schema.dump(appointment)
         }), 200
     
+    @jwt_required()
     def delete(self, id):
         # delete appointment
         appointment, errors = delete_appointment(id)

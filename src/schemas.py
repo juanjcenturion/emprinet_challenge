@@ -1,13 +1,19 @@
 from datetime import datetime
 
 from flask_marshmallow import Marshmallow
-from marshmallow import fields, pre_load, post_dump
+from marshmallow import fields, pre_load, post_dump, validate
 
 from src.models import Patient, Appointment
 from src.utils.utils import capitalize_names
 
 # instance MA
 ma = Marshmallow()
+
+
+class UserSchema(ma.SQLAlchemyAutoSchema):
+    username = fields.String(required=True, validate=validate.Length(min=3))
+    password = fields.String(required=True, validate=validate.Length(min=6))
+
 
 class PatientSchema(ma.SQLAlchemyAutoSchema):
     #validate required fields

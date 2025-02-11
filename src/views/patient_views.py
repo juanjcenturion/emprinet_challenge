@@ -1,4 +1,5 @@
 from flask import request, jsonify
+from flask_jwt_extended import jwt_required
 from flask.views import MethodView
 
 from src.schemas import PatientSchema
@@ -11,6 +12,7 @@ from src.services.patient_service import (
 )
 
 class PatientsAPIView(MethodView):
+    @jwt_required()
     def get(self, id=None):
         if id:
             # Search patient for id with service
@@ -47,7 +49,8 @@ class PatientsAPIView(MethodView):
             "has_next": patients_paginated.has_next,
             "has_prev": patients_paginated.has_prev
         })
-
+    
+    @jwt_required()
     def post(self):
         data = request.get_json()
 
@@ -60,6 +63,7 @@ class PatientsAPIView(MethodView):
         patient_schema = PatientSchema()
         return patient_schema.jsonify(patient), 201
     
+    @jwt_required()
     def put(self, id):
         # Update patient whit service
         patient_json = request.get_json()
@@ -74,6 +78,7 @@ class PatientsAPIView(MethodView):
             "data": patient_schema.dump(patient)
         }), 200
 
+    @jwt_required()
     def delete(self, id):
         # delete patient
         patient, errors = delete_patient(id)
