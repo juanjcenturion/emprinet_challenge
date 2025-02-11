@@ -45,7 +45,7 @@ ____
 ____
 ## 📂 Estructura del proyecto
 ```
-📁Repositorio/
+📁emprinet_challenge/
 |-- 📄 app.py    
 |-- 📄 requirements.txt
 |-- 📄 .env.example
@@ -55,12 +55,20 @@ ____
     |-- 📄 models.py
     |-- 📄 schemas.py
     |-- 📄 utils.py
+    |-- 📁 configs/
+        |-- 📄 config.py
+        |-- 📄 log_config.py
+    |-- 📁 logs/
     |-- 📁 services/
         |-- 📄 appointment_service.py
         |-- 📄 patient_service.py
+        |-- 📄 user_service.py
+    |-- 📁 utils/
+        |-- 📄 utils.py
     |-- 📁 views/
         |-- 📄 appointment_views.py
         |-- 📄 patient_views.py
+        |-- 📄 user_views.py
 ```
 
 ____
