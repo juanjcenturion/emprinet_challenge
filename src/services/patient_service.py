@@ -29,7 +29,7 @@ def create_patient(data):
 
         logger.info(f"✅ Paciente creado correctamente: {patient.id} - {patient.last_name}, {patient.first_name}")
 
-        return patient
+        return patient, None
     
     # Validation Error
     except ValidationError as err:
