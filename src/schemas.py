@@ -4,7 +4,7 @@ from flask_marshmallow import Marshmallow
 from marshmallow import fields, pre_load, post_dump
 
 from src.models import Patient, Appointment
-from src.utils import capitalize_names
+from src.utils.utils import capitalize_names
 
 # instance MA
 ma = Marshmallow()
