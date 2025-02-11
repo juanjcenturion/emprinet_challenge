@@ -1,0 +1,15 @@
+version: '3.0'
+
+services:
+  flask_app:
+    build: 
+      context: .
+      dockerfile: dockerfile
+    ports:
+      -"5000:5000"
+    volumes:
+      -.:/app
+    env_file:
+      - .env
+    container_name: emprinet_flask_app
+    restart: always
