@@ -3,6 +3,7 @@ venv/
 
 # Archivos de Python generados
 __pycache__/
+.pytest_cache/
 *.pyc
 *.pyo
 
