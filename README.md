@@ -45,6 +45,10 @@ cp .env.example .env
 ```
 edita el archivo .env correctamente con tus credenciales
 
+#### Ejecutar el proyecto:
+```
+flask run --reload
+```
 ____
 ## 🐳 Despliegue de la Aplicación con Docker-Compose
 Si prefieres usar Docker para ejecutar la aplicación, sigue estos pasos:
@@ -67,7 +71,7 @@ ____
 
 ## 📋 Endpoints Disponibles
 
-#### Pacientes (`/parients`)
+#### Pacientes (`/patients`)
 - `POST /patients` -> Crear pacientes.
 - `GET /patients` -> Listar pacientes.
 - `GET /patients/<id>` -> Obtener paciente por id.
@@ -83,7 +87,7 @@ ____
 
 #### Autenticación (`/auth`)
 - `POST /auth/register` -> Crear Usuario.
-- `POST /auth/Login` -> Iniciar sesión.
+- `POST /auth/login` -> Iniciar sesión.
 
 ____
 ## 📂 Estructura del proyecto
