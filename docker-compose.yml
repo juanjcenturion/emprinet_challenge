@@ -4,11 +4,11 @@ services:
   flask_app:
     build: 
       context: .
-      dockerfile: dockerfile
+      dockerfile: Dockerfile
     ports:
-      -"5000:5000"
+      - "5000:5000"
     volumes:
-      -.:/app
+      - ".:/app" 
     env_file:
       - .env
     container_name: emprinet_flask_app

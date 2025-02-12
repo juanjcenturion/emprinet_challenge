@@ -57,6 +57,17 @@ flask run --reload
 ```
 El __--reload__ es opcional
 ____
+## 🐳 Despliegue de la Aplicación con Docker
+Si prefieres usar Docker para ejecutar la aplicación, sigue estos pasos:
+#### 1. Construir la imagen de Docker
+`docker build -t mi_api_flask .`
+
+#### 2. Ejecutar el contenedor
+`sudo docker run -d -p 5000:5000 --name mi_api_flask emprinet`
+
+#### 3. Usar Docker Compose (opcional)
+`docker-compose up --build`
+____
 
 ## 📋 Endpoints Disponibles
 
