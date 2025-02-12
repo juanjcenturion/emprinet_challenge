@@ -50,7 +50,7 @@ class Appointment(db.Model):
     # Relationship
     patient = db.relationship(
         "Patient", backref="appointments"
-    )  # Cambiado el backref a 'appointments'
+    )
 
     def __str__(self):
         return f"{self.patient},  {self.appointment_date}>"

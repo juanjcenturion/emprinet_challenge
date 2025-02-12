@@ -27,7 +27,7 @@ class RegisterAPIView(MethodView):
         username = valid_data.get("username")
         password = valid_data.get("password")
 
-        # Llamamos al servicio para registrar el usuario
+        # Call the register service
         response = register_user(username, password)
 
         # if service return error
@@ -60,10 +60,10 @@ class LoginAPIView(MethodView):
         username = valid_data.get("username")
         password = valid_data.get("password")
 
-        # Llamamos al servicio para el login
+        # Call login service
         response = login_user(username, password)
 
-        # Si el servicio retorna un error, lo devolvemos
+        # if service return error
         if "error" in response:
             logger.error(
                 f"❌ Error al intentar iniciar sesión para el usuario {username}: {response['error']}"
