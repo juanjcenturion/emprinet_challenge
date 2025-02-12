@@ -18,5 +18,3 @@ RUN pip install --no-cache-dir -r requirements.txt
 # expose port 500
 EXPOSE 5000
 
-# execute run.sh
-CMD ["/bin/sh", "-c", "/app/run.sh"]
