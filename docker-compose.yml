@@ -13,3 +13,24 @@ services:
       - .env
     container_name: emprinet_flask_app
     restart: always
+    depends_on:
+      - postgres_db
+    entrypoint: ["/bin/sh", "-c", "chmod +x /app/run.sh && /app/run.sh"]
+
+  postgres_db:
+    image: postgres:15
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    restart: always
+    container_name: postgres_database
+
+volumes:
+  postgres_data:

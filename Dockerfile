@@ -1,27 +1,22 @@
-# Usar una imagen base de Python
 FROM python:3.10-alpine
 
 # install bash
 RUN apk add --no-cache bash
 
-# Set the working directory to the containerr
+# set workdir in container
 WORKDIR /app
 
-# Copy project files to the container
+# Copy files to container
 COPY . /app
 
-# Install dependencies
+# give permissions 
+RUN chmod +x /app/run.sh
+
+# install dependencies 
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Admin auth for run.sh
-RUN chmod +x run.sh
-
-# Expose Port
+# expose port 500
 EXPOSE 5000
 
-# Defining environment variables
-ENV FLASK_APP=/app/challenge-emprinet/__init__.py
-ENV FLASK_RUN_HOST=0.0.0.0
-
-# Execute Script
-CMD ["sh", "./run.sh"]
+# execute run.sh
+CMD ["/bin/sh", "-c", "/app/run.sh"]

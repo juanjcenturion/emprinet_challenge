@@ -31,7 +31,7 @@ cd emprinet_challenge
 ```
 #### 2. Crear y activar tu entorno virtual (opcional)
 ```
-python -m venv venv
+python3 -m venv venv
 source venv/bin/activate  # En Linux/macOS
 venv\Scripts\activate  # En Windows
 ```
@@ -57,7 +57,7 @@ flask run --reload
 ```
 El __--reload__ es opcional
 ____
-## 🐳 Despliegue de la Aplicación con Docker
+## 🐳 Despliegue de la Aplicación con Docker o Docker-Compose
 Si prefieres usar Docker para ejecutar la aplicación, sigue estos pasos:
 #### 1. Construir la imagen de Docker
 `docker build -t mi_api_flask .`
