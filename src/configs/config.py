@@ -12,4 +12,3 @@ class Config:
     # if tracking modifications is not necessary
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     JWT_SECRET_KEY = os.getenv("SECRET_KEY")
-    DEBUT = True
