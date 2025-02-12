@@ -1,12 +1,12 @@
 #!/bin/bash
 
-# Run your first command (e.g., flask db init)
+# db init in the project
 flask db init
 
-# Run your second command (e.g., another command)
+# first migration
 flask db migrate -m "initial migration"
 
-# Run your third command (e.g., yet another command)
+# Upgrade database
 flask db upgrade
 
 gunicorn app:app --bind 0.0.0.0:5000
