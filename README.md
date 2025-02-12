@@ -45,7 +45,13 @@ cp .env.example .env
 ```
 edita el archivo .env correctamente con tus credenciales
 
-#### Ejecutar el proyecto:
+#### 5. Inicializar la base de datos
+```
+flask db init
+flask db migrate -m "Initial migration"
+flask db upgrade
+```
+#### 6. Ejecutar el proyecto:
 ```
 flask run --reload
 ```
@@ -128,6 +134,6 @@ ____
 ## 🔐 Extras Opcionales
 1. Autenticación con JWT.
 2. Paginación en listados.
-3. Logging con Python Logging
+3. Logging con Python Logging.
 4. Soporte para Docker.
 5. Sentry
