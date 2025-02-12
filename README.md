@@ -45,28 +45,24 @@ cp .env.example .env
 ```
 edita el archivo .env correctamente con tus credenciales
 
-#### 5. Inicializar la base de datos
-```
-flask db init
-flask db migrate -m "Initial migration"
-flask db upgrade
-```
-#### 6. Ejecutar la aplicación
-```
-flask run --reload
-```
-El __--reload__ es opcional
 ____
-## 🐳 Despliegue de la Aplicación con Docker o Docker-Compose
+## 🐳 Despliegue de la Aplicación con Docker-Compose
 Si prefieres usar Docker para ejecutar la aplicación, sigue estos pasos:
-#### 1. Construir la imagen de Docker
-`docker build -t mi_api_flask .`
+#### 1️. Construir y ejecutar los contenedores
 
-#### 2. Ejecutar el contenedor
-`sudo docker run -d -p 5000:5000 --name mi_api_flask emprinet`
+`docker-compose up --build -d`
+- `build`: recontruye las imagenes en cambio de codigo
+- `-d`: ejecuta los contenedores en segundo plano (opcional)
 
-#### 3. Usar Docker Compose (opcional)
-`docker-compose up --build`
+#### 2. Verificar que los contenedores están corriendo
+```docker ps```
+- Deberías ver los contenedores de la app flask y postresql, corriendo
+
+#### 3. Ver los logs de la aplicación (opcional)
+- Si necesitas revisar los registros de Flask, usa:
+`docker logs -f emprinet_flask_app`
+- Si necesitas revisar PostgreSQL:
+`docker logs -f postgres_database`
 ____
 
 ## 📋 Endpoints Disponibles
